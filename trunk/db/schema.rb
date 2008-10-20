@@ -5,6 +5,7 @@ ActiveRecord::Schema.define do
   create_table :pages do |t|
     t.column :title, :string
     t.column :body, :text
+    t.column :user_id, :integer
     t.timestamps
   end
   
