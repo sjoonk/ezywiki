@@ -9,6 +9,8 @@ test:
   <<: *non_production_settings
   
 production:
-  site_url: http://yoursite.com
-  site_name: Yoursite
+  site_url: http://wiki.usefulparadigm.com
+  site_name: ezyWiki
   admin_email: admin@yoursite.com
+  start_mode: list #page
+  home_title: 대문
