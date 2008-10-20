@@ -34,7 +34,7 @@
 
 <div id="related_pages">
 	<h4>연관 페이지</h4>
-	<%= empty_msg_for @related_pages, '이 페이지로 연결되는 페이지가 없습니다.' %>
+	<%= empty_msg_for @related_pages, '이 페이지를 링크한 페이지가 없습니다.' %>
 	<% unless @related_pages.empty? %>
 	<ul>
 		<% @related_pages.each do |page| %>
