@@ -1,0 +1,55 @@
+<%= page_title @page.title %>
+
+<div id="summary_area" class="right clearfix">
+	<div class="float left">
+		<%= link_to APP_CONFIG[:home_title], root_path unless @page.title == APP_CONFIG[:home_title] %>
+	</div>
+	버전: <%= @page.versions.current.number %>,
+	<span class="atby">
+		<%= human_time(@page.created_at) %>
+	</span>
+</div>
+
+<div id="body_area">
+	<% if controller.action_name == 'edit' %>
+		<% form_for @page do |form| %>
+			<%= form.error_messages %>
+			<div class="right">
+				<%= link_to '취소', page_path(@page) %>
+				<%= form.submit '저장' %>
+			</div>	
+			<%= render :partial => form, :object => form %>
+		<% end %>
+	<% else %>
+	<div class="right">
+		<%= button_to '편집', edit_page_path(@page), :method => :get %>
+	</div>
+		<div id="real_body">
+			<%= wikilize(@page.body) %>
+		</div>	
+	<% end %>
+</div>
+
+<hr class="space"/>
+
+<div id="related_pages">
+	<h4>연관 페이지</h4>
+	<%= empty_msg_for @related_pages, '이 페이지로 연결되는 페이지가 없습니다.' %>
+	<% unless @related_pages.empty? %>
+	<ul>
+		<% @related_pages.each do |page| %>
+			<li>
+				<%= link_to page.title, page_path(page) %>
+				<span class="excerpt"><%= truncate(strip_tags_and_wiki(page.body), 30) %></span>
+				<span class="atby">
+					at <%= human_time(page.updated_at) %>
+				</span>	
+			</li>
+		<% end %>
+	</ul>	
+	<% end %>
+</div>	
+
+<% content_for :sub_area do %>
+	<%= render :partial => 'recent_pages' %>
+<% end %>
