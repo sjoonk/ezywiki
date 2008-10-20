@@ -1,0 +1,28 @@
+<%= page_title APP_CONFIG[:home_title] %>
+
+<div id="summary_area" class="clearfix">
+	<div class="float left">
+		총 <%= @pages_count %>개의 페이지
+	</div>	
+	<!--div class="float right">
+		<%#= button_to '새 페이지 작성', new_page_path %>
+	</div-->	
+</div>	
+
+<table>
+<% @pages.each do |page| %>
+<tr>
+	<td><%= link_to page.title, page_path(page) %></td>
+	<td><%= truncate(strip_tags_and_wiki(page.body), 20) %></td>
+	<td><%= human_time(page.updated_at) %></td>
+	<td><%= link_to image_tag('delete.gif'), page_path(page), :method => :delete, :confirm => 'Sure?' %>
+</tr>
+<% end %>
+</table>
+
+<div id="paginate">
+	<%= will_paginate @pages %>
+</div >		
+
+<% content_for :sub_area do %>
+<% end %>	
