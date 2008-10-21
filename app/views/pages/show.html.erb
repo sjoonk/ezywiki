@@ -1,15 +1,5 @@
 <%= page_title @page.title %>
 
-<div id="summary_area" class="right clearfix">
-	<div class="float left">
-		<%= link_to APP_CONFIG[:home_title], root_path unless @page.title == APP_CONFIG[:home_title] %>
-	</div>
-	버전: <%= @page.versions.current.number %>,
-	<span class="atby">
-		<%= human_time(@page.created_at) %>
-	</span>
-</div>
-
 <div id="body_area">
 	<% if controller.action_name == 'edit' %>
 		<% form_for @page do |form| %>
@@ -30,7 +20,14 @@
 	<% end %>
 </div>
 
-<hr class="space"/>
+<div id="summary_area" class="right clearfix">
+	<div class="float left">
+		<%#= link_to APP_CONFIG[:home_title], root_path unless @page.title == APP_CONFIG[:home_title] %>
+	</div>
+	<div id="version">
+		<%= link_to "버전: #{@page.versions.current.number}, <span class=\"atby\">#{human_time(@page.created_at)}</span>" %>
+	</div>	
+</div>
 
 <div id="related_pages">
 	<h4>연관 페이지</h4>
