@@ -14,9 +14,10 @@
 	<div class="right">
 		<%= button_to '편집', edit_page_path(@page), :method => :get %>
 	</div>
-		<div id="real_body">
-			<%= wikilize(@page.body) %>
-		</div>	
+	<div id="placeholder"></div>
+	<div id="real_body">
+		<%= wikilize(@page.body) %>
+	</div>	
 	<% end %>
 </div>
 
