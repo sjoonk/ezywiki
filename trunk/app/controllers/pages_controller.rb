@@ -53,7 +53,8 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = current_user.pages.new(params[:page])
+    @page = Page.new(params[:page])
+    @page.user = current_user
     if @page.save
       flash[:notice] = '새 페이지가 성공적으로 생성되었습니다.'
       redirect_to @page
