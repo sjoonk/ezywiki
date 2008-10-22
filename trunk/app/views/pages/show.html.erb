@@ -19,16 +19,24 @@ function hijack_link() {
 	})	
 }
 setTimeout("hijack_link()", 1000);
+function ajaxSave() {
+	$('#indicator').show();
+	$('#page_body').text(nicEditors.findEditor('real_body').getContent());
+	$('.edit_page').ajaxSubmit({
+		success: function(){ $('#indicator').hide(); $('input[type=button]').blur() }
+	});
+	return false;
+}
 </script>
 <% end %>
 <% jquery_onload do %>
-	window.onbeforeunload = function(){
-		if(nicEditors.findEditor('real_body').getContent() != $('#page_body').val())
-			return '저장되지 않은 내용이 있습니다.' 
-	}
-	$('.edit_page').submit(function(){
-		$('#page_body').val(nicEditors.findEditor('real_body').getContent());
-	}) 
+window.onbeforeunload = function(){
+	if(nicEditors.findEditor('real_body').getContent() != $('#page_body').text())
+		return '저장되지 않은 내용이 있습니다.' 
+};
+$('.edit_page').submit(function(){
+	$('#page_body').text(nicEditors.findEditor('real_body').getContent());
+}); 
 <% end %>
 
 <% form_for @page do |form| %>
@@ -36,16 +44,19 @@ setTimeout("hijack_link()", 1000);
 		<%= page_title @page.title %>
 		<div class="float right">
 			<%#= link_to '취소', page_path(@page) %>
-			<%= submit_tag '저장' %>
-			<%#= submit_tag '저장후 목록' %>
+			<span id="indicator" class="hidden">Saving...</span>
+			<%= button_to_function '저장', "ajaxSave()" %>
+			<%= submit_tag '저장후 종료' %>
 		</div>
 	</div>
 	<div id="nic_panel" style="width: 100%; margin: 5px 0 10px;"></div>
 	<div id="real_body" style="width: 100%;">
 		<%= w(@page.body) %>
 	</div>
-	<%#= text_area_tag 'page[body]', w(@page.body), :id => 'page_body' %>
-	<%= hidden_field_tag 'page[body]', w(@page.body), :id => 'page_body' %>
+	<div class="hidden">
+		<%= text_area_tag 'page[body]', w(@page.body), :id => 'page_body' %>
+	</div>	
+	<%#= hidden_field_tag 'page[body]', w(@page.body), :id => 'page_body' %>
 <% end %>
 
 <div id="summary_area" class="right clearfix">

@@ -64,6 +64,11 @@ table { font-size: 0.9em; }
 	background: url(/images/bg_line.gif);
 	min-height: 300px;
 }
+#indicator {
+	font-size: 0.85em;
+	font-style: italic;
+	color: red;
+}
 
 #summary_area {
 	margin: 5px 0;

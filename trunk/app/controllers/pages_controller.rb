@@ -68,7 +68,7 @@ class PagesController < ApplicationController
     @page.user = current_user
     if @page.update_attributes(params[:page])
       #flash[:notice] = '페이지가 잘 저장되었습니다.'
-      redirect_to @page
+      redirect_to pages_path
     else
       render :action => "edit"
     end
