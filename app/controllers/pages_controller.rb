@@ -47,10 +47,10 @@ class PagesController < ApplicationController
     @page = Page.new
   end
 
-  def edit
-    show
-    render :action => 'show'
-  end
+  # def edit
+  #   show
+  #   render :action => 'show'
+  # end
 
   def create
     @page = Page.new(params[:page])
