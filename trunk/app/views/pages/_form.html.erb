@@ -1,34 +1,5 @@
-<% content_for :head do %>
-<script type="text/javascript" charset="utf-8">
-bkLib.onDomLoaded(function() {
-	var myNicEditor = new nicEditor({
-				fullPanel: true, 
-				iconsPath: '/nicEdit/nicEditorIcons.gif', 
-				maxHeight: 300,
-				/*onSave : function(content, id, instance) {
-					$('#page_body').text(content);
-					$('.edit_page').submit();	
-				}*/
-	});
-  myNicEditor.setPanel('nic_panel');
-  myNicEditor.addInstance('real_body');
-	$('.nicEdit-frame').contents().find('.wikilink').click(function(){alert('hi')})	
-});
-
-</script>
-<% end %>
-<% jquery_onload do %>
-	window.onbeforeunload = function(){
-		if(nicEditors.findEditor('real_body').getContent() != $('#page_body').text())
-			return '저장되지 않은 내용이 있습니다.' 
-	}
-	$('.edit_page').submit(function(){
-		$('#page_body').text(nicEditors.findEditor('real_body').getContent());
-	}) 
-<% end %>
 
 <div id="nic_panel" style="width: 100%;"></div>
 <div id="real_body">
 	<%= w(@page.body) %>
 </div>
-<%= text_area_tag 'page[body]', w(@page.body), :id => 'page_body', :style => 'display: none; width: 100%;' %>
