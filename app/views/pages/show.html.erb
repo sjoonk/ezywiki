@@ -21,7 +21,7 @@ function hijack_link() {
 setTimeout("hijack_link()", 1000);
 function ajaxSave() {
 	$('#indicator').show();
-	$('#page_body').text(nicEditors.findEditor('real_body').getContent());
+	$('#page_body').val(nicEditors.findEditor('real_body').getContent());
 	$('.edit_page').ajaxSubmit({
 		success: function(){ $('#indicator').hide(); $('input[type=button]').blur() }
 	});
@@ -31,11 +31,14 @@ function ajaxSave() {
 <% end %>
 <% jquery_onload do %>
 window.onbeforeunload = function(){
-	if(nicEditors.findEditor('real_body').getContent() != $('#page_body').text())
-		return '저장되지 않은 내용이 있습니다.' 
+	// Resolve html entities mismatch between nicEdit and jQuery
+	if(nicEditors.findEditor('real_body').getContent().unescapeHtmlEntities() != $('#page_body').val()) {
+		//return confirm('저장되지 않은 내용이 있습니다.') 
+		return '저장되지 않은 내용이 있습니다.'
+	}	
 };
 $('.edit_page').submit(function(){
-	$('#page_body').text(nicEditors.findEditor('real_body').getContent());
+	$('#page_body').val(nicEditors.findEditor('real_body').getContent());
 }); 
 <% end %>
 

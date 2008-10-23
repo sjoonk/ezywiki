@@ -1,6 +1,6 @@
 /* Overloading * Extending Blueprint */
 body { 
-	font-size: 100%;	background-color: #fff; color: #000; 
+	font-size: 90%;	background-color: #fff; color: #000; 
 }
 input, textarea { font-size: 100%; }
 select { margin:0; padding 0; }
@@ -64,6 +64,7 @@ table { font-size: 0.9em; }
 	background: url(/images/bg_line.gif);
 	min-height: 300px;
 }
+
 #indicator {
 	font-size: 0.85em;
 	font-style: italic;
